@@ -11,7 +11,7 @@ faint="\e[2m"
 underlined="\e[4m"
 
 # Check dependencies
-for cmd in figlet curl jq; do
+for cmd in figlet curl jq bc; do
   if ! command -v "$cmd" &>/dev/null; then
     echo -e "Error: '$cmd' is required but not installed. Install it and try again."
     exit 1
@@ -47,6 +47,11 @@ while [[ "$#" -gt 0 ]]; do
       shift 2
       ;;
     -c|--country)
+      if [[ -z "$2" || "$2" == -* ]]; then
+        echo -e "Error: country code for -c|--country is missing.\n"
+        show_help
+        exit 1
+      fi
       COUNTRY="$2"
       shift 2
       ;;
@@ -79,7 +84,8 @@ RESPONSE=$(curl -s "$URL")
 COUNT=$(echo "$RESPONSE" | jq -r '.count // "N/A"')
 NAME_RESULT=$(echo "$RESPONSE" | jq -r '.name // "N/A"')
 GENDER=$(echo "$RESPONSE" | jq -r '.gender // "Unknown"')
-PROBABILITY=$(echo "$RESPONSE" | jq -r '.probability // "N/A"')
+RAW_PROBABILITY=$(echo "$RESPONSE" | jq -r '.probability // 0')
+PROBABILITY=$(printf "%.0f%%" "$(echo "$RAW_PROBABILITY * 100" | bc -l)")
 
 # Resolve country name from countries.json
 if [[ -n "$COUNTRY" && -f "countries.json" ]]; then
