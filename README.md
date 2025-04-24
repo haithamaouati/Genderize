@@ -54,6 +54,7 @@ The script requires the following dependencies:
 - [figlet](http://www.figlet.org/): `pkg install figlet - y`
 - [curl](https://curl.se/): `pkg install curl - y`
 - [jq](https://jqlang.org/): `pkg install jq -y`
+- [bc](): `pkg install bc -y`
 
 Make sure to install these dependencies before running the script.
 
