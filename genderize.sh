@@ -5,6 +5,7 @@
 
 # Text format
 normal="\e[0m"
+bold="\e[1m"
 result="\e[1;32m"
 faint="\e[2m"
 underlined="\e[4m"
