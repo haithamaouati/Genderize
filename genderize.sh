@@ -9,17 +9,21 @@ bold="\e[1m"
 result="\e[1;32m"
 faint="\e[2m"
 underlined="\e[4m"
+error_color="\e[1;31m"
 
-# Check dependencies
-for cmd in figlet curl jq bc; do
-  if ! command -v "$cmd" &>/dev/null; then
-    echo -e "Error: '$cmd' is required but not installed. Install it and try again."
-    exit 1
-  fi
+# Dependencies check
+dependencies=(figlet curl jq bc)
+for cmd in "${dependencies[@]}"; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo -e "${error_color}Error:${normal} '$cmd' is required but not installed. Please install it and try again." >&2
+        exit 1
+    fi
 done
 
+# Clear the screen
+clear
+
 print_banner() {
-  clear
   figlet -f standard "Genderize"
   echo -e "${bold}Genderize ${normal}— Check the Gender of a Name\n"
   echo -e " Author: Haitham Aouati"
