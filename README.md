@@ -65,4 +65,4 @@ Made with :coffee: by **Haitham Aouati**
 
 ## License
 
-Genderize is licensed under [Unlicense license](LICENSE)
+Genderize is licensed under [WTFPL license](LICENSE)
